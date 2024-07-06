@@ -1,4 +1,5 @@
 import express from "express";
+import { generateFakeData } from "./utils/fakeData";
 
 const app = express();
 
@@ -6,11 +7,7 @@ app.get("/", (req, res) => {
   res.send(`<h1>Hello Express</h1>`);
 });
 
-const dummyProducts = [
-  { id: 1, name: "Blue T-shirt" },
-  { id: 2, name: "Orange T-shirt" },
-  { id: 3, name: "Black T-shirt" },
-];
+const dummyProducts = generateFakeData();
 
 app.get("/products", (req, res) => {
   res.send(dummyProducts);
