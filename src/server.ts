@@ -47,7 +47,7 @@ app.get("/products/:id", (req, res) => {
   res.status(404).send({ message: "Product not found" });
 });
 
-// Create a new product
+// Create
 app.post("/products", (req, res) => {
   const newProduct = req.body;
   dummyProducts.push({ id: dummyProducts.length + 1, ...newProduct });
@@ -72,7 +72,7 @@ app.patch("/products/:id", (req, res) => {
     (product) => product.id === productId
   );
   const productBody = req.body;
-  if (!findProductId) {
+  if (findProductId === -1) {
     return res.status(404).send({
       message: "Product not found!",
     });
@@ -81,8 +81,30 @@ app.patch("/products/:id", (req, res) => {
     ...dummyProducts[findProductId],
     ...productBody,
   };
-  console.log(dummyProducts[findProductId]);
   return res.send(dummyProducts[findProductId]);
+});
+
+// Delete
+app.delete("/products/:id", (req, res) => {
+  const productId = +req.params.id;
+  if (isNaN(productId)) {
+    return res.status(404).send({
+      message: "Product not found!",
+    });
+  }
+
+  const findProductId: number = dummyProducts.findIndex(
+    (product) => product.id === productId
+  );
+  if (findProductId === -1) {
+    return res.status(404).send({
+      message: "Product not found!",
+    });
+  }
+  const filteredProducts = dummyProducts.filter(
+    (product) => product.id !== findProductId + 1
+  );
+  return res.send(filteredProducts);
 });
 
 const PORT: number = 5000;
