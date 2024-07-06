@@ -4,6 +4,8 @@ import { IProduct } from "./interfaces";
 
 const app = express();
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send(`<h1>Hello Express</h1>`);
 });
@@ -43,6 +45,44 @@ app.get("/products/:id", (req, res) => {
   }
 
   res.status(404).send({ message: "Product not found" });
+});
+
+// Create a new product
+app.post("/products", (req, res) => {
+  const newProduct = req.body;
+  dummyProducts.push({ id: dummyProducts.length + 1, ...newProduct });
+  res.status(201).send({
+    id: dummyProducts.length + 1,
+    title: newProduct.title,
+    price: newProduct.price,
+    desc: newProduct.desc,
+  });
+});
+
+// Update
+app.patch("/products/:id", (req, res) => {
+  const productId = +req.params.id;
+  if (isNaN(productId)) {
+    return res.status(404).send({
+      message: "Product not found!",
+    });
+  }
+
+  const findProductId: number = dummyProducts.findIndex(
+    (product) => product.id === productId
+  );
+  const productBody = req.body;
+  if (!findProductId) {
+    return res.status(404).send({
+      message: "Product not found!",
+    });
+  }
+  dummyProducts[findProductId] = {
+    ...dummyProducts[findProductId],
+    ...productBody,
+  };
+  console.log(dummyProducts[findProductId]);
+  return res.send(dummyProducts[findProductId]);
 });
 
 const PORT: number = 5000;
