@@ -2,7 +2,7 @@ import express from "express";
 import { generateFakeData } from "./utils/fakeData";
 import { IProduct } from "./interfaces";
 import ProductController from "./controllers/productController";
-import { ProductsService } from "./services/ProductsService";
+import ProductsService from "./services/ProductService";
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 
 const dummyProducts: IProduct[] = generateFakeData();
 
-const productService = new ProductsService();
+const productService = new ProductsService(dummyProducts);
 const productController = new ProductController(productService);
 
 app.get("/products", (req, res) => {

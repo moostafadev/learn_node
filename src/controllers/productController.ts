@@ -1,4 +1,4 @@
-import { ProductsService } from "../services/ProductsService";
+import ProductsService from "../services/ProductService";
 
 class ProductController {
   constructor(private productService: ProductsService) {}
