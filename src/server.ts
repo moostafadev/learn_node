@@ -1,6 +1,8 @@
 import express from "express";
 import { generateFakeData } from "./utils/fakeData";
 import { IProduct } from "./interfaces";
+import ProductController from "./controllers/productController";
+import { ProductsService } from "./services/ProductsService";
 
 const app = express();
 
@@ -12,24 +14,28 @@ app.get("/", (req, res) => {
 
 const dummyProducts: IProduct[] = generateFakeData();
 
+const productService = new ProductsService();
+const productController = new ProductController(productService);
+
 app.get("/products", (req, res) => {
-  const filterQuery = req.query.filter as string;
+  return res.send(productController.getProducts());
+  // const filterQuery = req.query.filter as string;
 
-  if (filterQuery) {
-    const propertiesToFilter = filterQuery.split(",");
-    let filteredProducts: any = {};
+  // if (filterQuery) {
+  //   const propertiesToFilter = filterQuery.split(",");
+  //   let filteredProducts: any = {};
 
-    filteredProducts = dummyProducts.map((product) => {
-      propertiesToFilter.forEach((property) => {
-        if (product.hasOwnProperty(property as keyof IProduct)) {
-          filteredProducts[property] = product[property as keyof IProduct];
-        }
-      });
-      return { id: product.id, ...filteredProducts };
-    });
-    return res.send(filteredProducts);
-  }
-  return res.send(dummyProducts);
+  //   filteredProducts = dummyProducts.map((product) => {
+  //     propertiesToFilter.forEach((property) => {
+  //       if (product.hasOwnProperty(property as keyof IProduct)) {
+  //         filteredProducts[property] = product[property as keyof IProduct];
+  //       }
+  //     });
+  //     return { id: product.id, ...filteredProducts };
+  //   });
+  //   return res.send(filteredProducts);
+  // }
+  // return res.send(dummyProducts);
 });
 
 app.get("/products/:id", (req, res) => {
