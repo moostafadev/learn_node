@@ -17,26 +17,7 @@ const dummyProducts: IProduct[] = generateFakeData();
 const productService = new ProductsService(dummyProducts);
 const productController = new ProductController(productService);
 
-app.get("/products", (req, res) => {
-  return res.send(productController.getProducts());
-  // const filterQuery = req.query.filter as string;
-
-  // if (filterQuery) {
-  //   const propertiesToFilter = filterQuery.split(",");
-  //   let filteredProducts: any = {};
-
-  //   filteredProducts = dummyProducts.map((product) => {
-  //     propertiesToFilter.forEach((property) => {
-  //       if (product.hasOwnProperty(property as keyof IProduct)) {
-  //         filteredProducts[property] = product[property as keyof IProduct];
-  //       }
-  //     });
-  //     return { id: product.id, ...filteredProducts };
-  //   });
-  //   return res.send(filteredProducts);
-  // }
-  // return res.send(dummyProducts);
-});
+app.get("/products", (req, res) => res.send(productController.getProducts()));
 
 app.get("/products/:id", (req, res) => {
   const productId = +req.params.id;

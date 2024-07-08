@@ -5,7 +5,7 @@ export default class ProductsService {
     this.products = products;
   }
 
-  findAll() {
+  findAll(): IProduct[] {
     return this.products;
   }
 }
