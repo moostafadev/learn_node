@@ -54,4 +54,8 @@ export default class ProductsService {
       ...productBody,
     });
   }
+
+  deleteProductByIndex(index: number) {
+    return this.findAll().filter((product) => product.id !== index + 1);
+  }
 }

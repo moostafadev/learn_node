@@ -61,6 +61,26 @@ class ProductController {
     this.productService.updateProductByIndex(findProductId, productBody);
     return res.send(this.productService.findAll()[findProductId]);
   }
+
+  deleteProduct(req: Request, res: Response) {
+    const productId = +req.params.id;
+    if (isNaN(productId)) {
+      return res.status(404).send({
+        message: "Product not found!",
+      });
+    }
+    const findProductId: number = this.productService
+      .findAll()
+      .findIndex((product) => product.id === productId);
+    if (findProductId === -1) {
+      return res.status(404).send({
+        message: "Product not found!",
+      });
+    }
+    const filteredProducts =
+      this.productService.deleteProductByIndex(findProductId);
+    return res.send(filteredProducts);
+  }
 }
 
 export default ProductController;

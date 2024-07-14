@@ -21,37 +21,13 @@ app.get("/products", (req, res) => productController.getProducts(req, res));
 app.get("/products/:id", (req, res) =>
   productController.getProductId(req, res)
 );
-
-// Create
 app.post("/products", (req, res) => productController.createProduct(req, res));
-
-// Update
 app.patch("/products/:id", (req, res) =>
   productController.updateProduct(req, res)
 );
-
-// Delete
-app.delete("/products/:id", (req, res) => {
-  const productId = +req.params.id;
-  if (isNaN(productId)) {
-    return res.status(404).send({
-      message: "Product not found!",
-    });
-  }
-
-  const findProductId: number = dummyProducts.findIndex(
-    (product) => product.id === productId
-  );
-  if (findProductId === -1) {
-    return res.status(404).send({
-      message: "Product not found!",
-    });
-  }
-  const filteredProducts = dummyProducts.filter(
-    (product) => product.id !== findProductId + 1
-  );
-  return res.send(filteredProducts);
-});
+app.delete("/products/:id", (req, res) =>
+  productController.deleteProduct(req, res)
+);
 
 const PORT: number = 5000;
 app.listen(PORT, () => {
