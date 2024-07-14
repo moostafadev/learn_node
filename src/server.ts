@@ -23,41 +23,12 @@ app.get("/products/:id", (req, res) =>
 );
 
 // Create
-app.post("/products", (req, res) => {
-  const newProduct = req.body;
-  dummyProducts.push({ id: dummyProducts.length + 1, ...newProduct });
-  res.status(201).send({
-    id: dummyProducts.length + 1,
-    title: newProduct.title,
-    price: newProduct.price,
-    desc: newProduct.desc,
-  });
-});
+app.post("/products", (req, res) => productController.createProduct(req, res));
 
 // Update
-app.patch("/products/:id", (req, res) => {
-  const productId = +req.params.id;
-  if (isNaN(productId)) {
-    return res.status(404).send({
-      message: "Product not found!",
-    });
-  }
-
-  const findProductId: number = dummyProducts.findIndex(
-    (product) => product.id === productId
-  );
-  const productBody = req.body;
-  if (findProductId === -1) {
-    return res.status(404).send({
-      message: "Product not found!",
-    });
-  }
-  dummyProducts[findProductId] = {
-    ...dummyProducts[findProductId],
-    ...productBody,
-  };
-  return res.send(dummyProducts[findProductId]);
-});
+app.patch("/products/:id", (req, res) =>
+  productController.updateProduct(req, res)
+);
 
 // Delete
 app.delete("/products/:id", (req, res) => {
