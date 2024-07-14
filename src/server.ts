@@ -17,24 +17,10 @@ const dummyProducts: IProduct[] = generateFakeData();
 const productService = new ProductsService(dummyProducts);
 const productController = new ProductController(productService);
 
-app.get("/products", (req, res) =>
-  res.send(productController.getProducts(req))
+app.get("/products", (req, res) => productController.getProducts(req, res));
+app.get("/products/:id", (req, res) =>
+  productController.getProductId(req, res)
 );
-
-app.get("/products/:id", (req, res) => {
-  const productId = +req.params.id;
-
-  if (isNaN(productId)) {
-    res.status(404).send({ message: "Invalid product ID" });
-  }
-
-  const findProduct = dummyProducts.find((product) => product.id === productId);
-  if (findProduct) {
-    res.send(findProduct);
-  }
-
-  res.status(404).send({ message: "Product not found" });
-});
 
 // Create
 app.post("/products", (req, res) => {

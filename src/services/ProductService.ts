@@ -8,10 +8,12 @@ export default class ProductsService {
   findAll(): IProduct[] {
     return this.products;
   }
+
   filterByQuery(filterQuery?: string) {
     if (filterQuery) {
-      const properriesToFilter = filterQuery.split(".");
+      const properriesToFilter = filterQuery.split(",");
       let filteredProducts = [];
+
       filteredProducts = this.findAll().map((product) => {
         const filteredProduct: any = {};
         properriesToFilter.forEach((property) => {
@@ -19,11 +21,17 @@ export default class ProductsService {
             filteredProduct[property] = product[property as keyof IProduct];
           }
         });
+
         return { id: product.id, ...filteredProduct };
       });
+
       return filteredProducts;
     }
 
     return this.findAll();
+  }
+
+  getProductById(productId: number) {
+    return this.findAll().find((product) => product.id === productId);
   }
 }
