@@ -81,6 +81,13 @@ class ProductController {
       this.productService.deleteProductByIndex(findProductId);
     return res.send(filteredProducts);
   }
+
+  renderProductsList(req: Request, res: Response) {
+    res.render("products", {
+      pageTitle: "Products page",
+      products: this.productService.findAll(),
+    });
+  }
 }
 
 export default ProductController;

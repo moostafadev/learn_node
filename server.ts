@@ -21,9 +21,9 @@ const dummyProducts: IProduct[] = generateFakeData();
 const productService = new ProductsService(dummyProducts);
 const productController = new ProductController(productService);
 
-app.get("/products", (req, res) => {
-  res.render("products");
-});
+app.get("/products", (req, res) =>
+  productController.renderProductsList(req, res)
+);
 
 app.get("/api/products", (req, res) => productController.getProducts(req, res));
 app.get("/api/products/:id", (req, res) =>
