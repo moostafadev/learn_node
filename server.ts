@@ -1,17 +1,20 @@
 import express from "express";
+import path from "path";
 import { generateFakeData } from "./utils/fakeData";
 import { IProduct } from "./interfaces";
-import ProductController from "./controllers/productController";
 import ProductsService from "./services/ProductService";
+import ProductController from "./controllers/productController";
 
 const app = express();
 
 app.use(express.json());
+
+// Set views directory and engine
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-app.get("/", (req, res) => {
-  res.send(`<h1>Hello Express</h1>`);
-});
+// Static files
+app.use(express.static(path.join(__dirname, "public")));
 
 const dummyProducts: IProduct[] = generateFakeData();
 

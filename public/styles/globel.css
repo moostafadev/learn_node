@@ -1,0 +1,10 @@
+.title {
+  background-color: #333;
+  color: white;
+  padding: 12px 18px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
