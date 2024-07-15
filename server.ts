@@ -24,6 +24,9 @@ const productController = new ProductController(productService);
 app.get("/products", (req, res) =>
   productController.renderProductsList(req, res)
 );
+app.get("/products/:id", (req, res) =>
+  productController.remderProductItem(req, res)
+);
 
 app.get("/api/products", (req, res) => productController.getProducts(req, res));
 app.get("/api/products/:id", (req, res) =>

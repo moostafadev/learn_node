@@ -88,6 +88,14 @@ class ProductController {
       products: this.productService.findAll(),
     });
   }
+
+  remderProductItem(req: Request, res: Response) {
+    const id = +req.params.id;
+    res.render("product", {
+      pageTitle: `Product ${this.productService.findAll()[id - 1].title}`,
+      productTitle: this.productService.findAll()[id - 1].title,
+    });
+  }
 }
 
 export default ProductController;

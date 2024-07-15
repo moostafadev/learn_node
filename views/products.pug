@@ -4,7 +4,17 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/styles/globel.css")
+    link(rel="stylesheet", href="/styles/products.css")
     title Products Page
   body 
-    h1.title= pageTitle
-    div= JSON.stringify(products)
+    .container
+      h1.title= pageTitle
+
+      // Product list
+      ul.products-container
+        each product in products
+          li.card
+            h3= product.title
+            p= product.desc
+            span= product.price
+            a(href='/products/'+product.id).btn Veiw 
