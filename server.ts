@@ -27,7 +27,6 @@ app.get("/products", (req, res) =>
 app.get("/products/:id", (req, res) =>
   productController.remderProductItem(req, res)
 );
-
 app.get("/api/products", (req, res) => productController.getProducts(req, res));
 app.get("/api/products/:id", (req, res) =>
   productController.getProductId(req, res)
@@ -45,7 +44,6 @@ app.delete("/api/products/:id", (req, res) =>
 app.get("/", (req, res) => {
   res.render("index");
 });
-
 app.get("*", (req, res) => {
   res.render("notFound");
 });

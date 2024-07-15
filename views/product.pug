@@ -4,8 +4,13 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/styles/globel.css")
-    title= pageTitle
+    link(rel="stylesheet", href="/styles/products.css")
+    title= product.title
   body 
     .container
-      h1.title= pageTitle
-      h2= productTitle
+      h1.title= `Product - ${product.title}`
+      div.card
+          h3= product.title
+          p= product.desc
+          span= product.price
+          a(href='/products').btn Back 
