@@ -4,6 +4,7 @@ import { generateFakeData } from "./utils/fakeData";
 import { IProduct } from "./interfaces";
 import ProductsService from "./services/ProductService";
 import ProductController from "./controllers/productController";
+import productsRouter from "./routes/products";
 
 const app = express();
 
@@ -27,19 +28,9 @@ app.get("/products", (req, res) =>
 app.get("/products/:id", (req, res) =>
   productController.remderProductItem(req, res)
 );
-app.get("/api/products", (req, res) => productController.getProducts(req, res));
-app.get("/api/products/:id", (req, res) =>
-  productController.getProductId(req, res)
-);
-app.post("/api/products", (req, res) =>
-  productController.createProduct(req, res)
-);
-app.patch("/api/products/:id", (req, res) =>
-  productController.updateProduct(req, res)
-);
-app.delete("/api/products/:id", (req, res) =>
-  productController.deleteProduct(req, res)
-);
+
+// API
+app.use("/api/products", productsRouter);
 
 app.get("/", (req, res) => {
   res.render("index");
