@@ -1,7 +1,7 @@
 extends layout/_base
 block content
-  .container.p-2.mx-auto.my-4
-    .grid.grid-cols-1(class='md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-4')
+  .container.my-8.mb-20
+    .grid.grid-cols-1(class='md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-4')
       each product in products
         .group.flex.w-full.max-w-xs.flex-col.overflow-hidden.rounded-lg.border.border-gray-100.bg-white.shadow-md
           a.relative.mx-3.mt-3.flex.h-60.overflow-hidden.rounded-xl(href=`/products/${product.id}`)
