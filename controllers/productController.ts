@@ -5,6 +5,10 @@ import ProductsService from "../services/ProductService";
 class ProductController {
   constructor(private productService: ProductsService) {
     this.getProducts = this.getProducts.bind(this);
+    this.getProductId = this.getProductId.bind(this);
+    this.createProduct = this.createProduct.bind(this);
+    this.updateProduct = this.updateProduct.bind(this);
+    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
   getProducts(req: Request, res: Response) {
@@ -82,20 +86,6 @@ class ProductController {
     const filteredProducts =
       this.productService.deleteProductByIndex(findProductId);
     return res.send(filteredProducts);
-  }
-
-  renderProductsList(req: Request, res: Response) {
-    res.render("products", {
-      pageTitle: "Products page",
-      products: this.productService.findAll(),
-    });
-  }
-
-  remderProductItem(req: Request, res: Response) {
-    const id = +req.params.id;
-    res.render("product", {
-      product: this.productService.getProductById(id),
-    });
   }
 }
 

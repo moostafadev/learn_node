@@ -1,10 +1,7 @@
 import express from "express";
 import path from "path";
-import { generateFakeData } from "./utils/fakeData";
-import { IProduct } from "./interfaces";
-import ProductsService from "./services/ProductService";
-import ProductController from "./controllers/productController";
 import productsRouter from "./routes/products";
+import productsRenderRouter from "./routes/productsRender";
 
 const app = express();
 
@@ -17,19 +14,7 @@ app.set("view engine", "pug");
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
 
-const dummyProducts: IProduct[] = generateFakeData();
-
-const productService = new ProductsService(dummyProducts);
-const productController = new ProductController(productService);
-
-app.get("/products", (req, res) =>
-  productController.renderProductsList(req, res)
-);
-app.get("/products/:id", (req, res) =>
-  productController.remderProductItem(req, res)
-);
-
-// API
+app.use("/products", productsRenderRouter);
 app.use("/api/products", productsRouter);
 
 app.get("/", (req, res) => {
