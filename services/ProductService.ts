@@ -4,6 +4,7 @@ interface IProductBody {
   title: string;
   desc: string;
   price: string;
+  image: string;
 }
 
 export default class ProductsService {

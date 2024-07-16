@@ -8,6 +8,7 @@ export const generateFakeData: () => IProduct[] = () => {
       title: faker.commerce.productName(),
       desc: faker.commerce.productDescription(),
       price: faker.commerce.price({ min: 100, max: 500, symbol: "$" }),
+      image: faker.image.urlPicsumPhotos(),
     };
   });
 };
