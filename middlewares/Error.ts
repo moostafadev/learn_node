@@ -10,6 +10,12 @@ export default class ErrorMiddleware {
       });
     }
 
+    res.status(500).render("error", {
+      titlePage: "Error",
+      message: "Something went wrong. Please try again later",
+      error: err.message,
+    });
+
     next();
   }
 }
