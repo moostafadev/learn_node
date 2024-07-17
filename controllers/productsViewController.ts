@@ -8,7 +8,6 @@ export default class ProductsViewContoller {
   }
 
   renderProductsList(req: Request, res: Response) {
-    throw new Error("ERROR");
     res.render("products", {
       titlePage: "Products",
       products: this.productService.findAll(),
