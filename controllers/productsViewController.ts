@@ -9,7 +9,7 @@ export default class ProductsViewContoller {
 
   renderProductsList(req: Request, res: Response) {
     res.render("products", {
-      pageTitle: "Products page",
+      titlePage: "Products",
       products: this.productService.findAll(),
     });
   }
@@ -17,6 +17,7 @@ export default class ProductsViewContoller {
   renderProductItem(req: Request, res: Response) {
     const id = +req.params.id;
     res.render("product", {
+      titlePage: `product - ${id}`,
       product: this.productService.getProductById(id),
     });
   }
