@@ -18,10 +18,14 @@ app.use("/products", productsRenderRouter);
 app.use("/api/products", productsRouter);
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {
+    titlePage: "Home",
+  });
 });
 app.get("*", (req, res) => {
-  res.render("notFound");
+  res.render("notFound", {
+    titlePage: "Not found",
+  });
 });
 
 const PORT: number = 5000;
