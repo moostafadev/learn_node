@@ -1,4 +1,5 @@
 import express from "express";
+import helmet from "helmet";
 import path from "path";
 import productsRouter from "./routes/products";
 import productsRenderRouter from "./routes/productsRender";
@@ -8,8 +9,17 @@ import NotFoundMiddleware from "./middlewares/NotFound";
 
 const app = express();
 
-app.use(express.json());
 dotenv.config();
+
+app.use(express.json());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    xFrameOptions: {
+      action: "deny",
+    },
+  })
+);
 
 // Set views directory and engine
 app.set("views", path.join(__dirname, "views"));
