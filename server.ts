@@ -3,10 +3,12 @@ import path from "path";
 import productsRouter from "./routes/products";
 import productsRenderRouter from "./routes/productsRender";
 import ErrorMiddleware from "./middlewares/Error";
+import dotenv from "dotenv";
 
 const app = express();
 
 app.use(express.json());
+dotenv.config();
 
 // Set views directory and engine
 app.set("views", path.join(__dirname, "views"));
