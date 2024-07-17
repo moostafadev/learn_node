@@ -12,6 +12,7 @@ class ProductController {
   }
 
   getProducts(req: Request, res: Response) {
+    throw new Error("ERROR");
     const filterQuery = req.query.filter as string;
 
     if (filterQuery) {

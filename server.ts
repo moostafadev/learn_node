@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import productsRouter from "./routes/products";
 import productsRenderRouter from "./routes/productsRender";
+import ErrorMiddleware from "./middlewares/Error";
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.get("*", (req, res) => {
     titlePage: "Not found",
   });
 });
+
+app.use(ErrorMiddleware.handle);
 
 const PORT: number = 5000;
 app.listen(PORT, () => {
