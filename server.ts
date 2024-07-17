@@ -1,5 +1,8 @@
 import express from "express";
 import helmet from "helmet";
+import morgan from "morgan";
+import rateLimit from "express-rate-limit";
+import compression from "compression";
 import path from "path";
 import productsRouter from "./routes/products";
 import productsRenderRouter from "./routes/productsRender";
@@ -11,6 +14,12 @@ const app = express();
 
 dotenv.config();
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+  message: "Too many requests from this IP, please try again later.",
+});
+
 app.use(express.json());
 app.use(
   helmet({
@@ -20,6 +29,9 @@ app.use(
     },
   })
 );
+app.use(compression());
+app.use(morgan("dev"));
+app.use(limiter);
 
 // Set views directory and engine
 app.set("views", path.join(__dirname, "views"));
