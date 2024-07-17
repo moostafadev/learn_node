@@ -4,6 +4,7 @@ import productsRouter from "./routes/products";
 import productsRenderRouter from "./routes/productsRender";
 import ErrorMiddleware from "./middlewares/Error";
 import dotenv from "dotenv";
+import NotFoundMiddleware from "./middlewares/NotFound";
 
 const app = express();
 
@@ -17,22 +18,20 @@ app.set("view engine", "pug");
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/products", productsRenderRouter);
-app.use("/api/products", productsRouter);
-
+// Routes
 app.get("/", (req, res) => {
   res.render("index", {
     titlePage: "Home",
   });
 });
-app.get("*", (req, res) => {
-  res.render("notFound", {
-    titlePage: "Not found",
-  });
-});
+app.use("/products", productsRenderRouter);
+app.use("/api/products", productsRouter);
 
+// Middlewares
+app.use(NotFoundMiddleware.handle);
 app.use(ErrorMiddleware.handle);
 
+// Start server
 const PORT: number = 5000;
 app.listen(PORT, () => {
   console.log(`Server running at => http://localhost:${PORT}`);
